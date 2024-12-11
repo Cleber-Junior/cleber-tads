@@ -1,5 +1,7 @@
-package br.edu.ifsul.cstsi.tads_cleber.usuarios;
+package br.edu.ifsul.cstsi.tads_cleber.service;
 
+import br.edu.ifsul.cstsi.tads_cleber.entity.Usuario;
+import br.edu.ifsul.cstsi.tads_cleber.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;

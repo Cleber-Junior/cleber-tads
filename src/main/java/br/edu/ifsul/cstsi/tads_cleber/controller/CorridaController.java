@@ -1,5 +1,7 @@
-package br.edu.ifsul.cstsi.tads_cleber.corridas;
+package br.edu.ifsul.cstsi.tads_cleber.controller;
 
+import br.edu.ifsul.cstsi.tads_cleber.entity.Corrida;
+import br.edu.ifsul.cstsi.tads_cleber.repository.CorridaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

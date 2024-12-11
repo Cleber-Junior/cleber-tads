@@ -1,5 +1,7 @@
-package br.edu.ifsul.cstsi.tads_cleber.motoristas;
+package br.edu.ifsul.cstsi.tads_cleber.controller;
 
+import br.edu.ifsul.cstsi.tads_cleber.entity.Motorista;
+import br.edu.ifsul.cstsi.tads_cleber.repository.MotoristaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -15,34 +17,37 @@ public class MotoristaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Motorista>> findAll(){
-        return ResponseEntity.ok(motoristaRepository.findAll());
+    public ResponseEntity<List<MotoristaDto>> findAll(){
+        return ResponseEntity.ok(motoristaRepository.findAll().stream().map(MotoristaDto::new).toList());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Motorista> findById(@PathVariable("id") Long id){
+    @GetMapping("{id}")
+    public ResponseEntity<MotoristaDto> findById(@PathVariable("id") Long id){
         var motorist = motoristaRepository.findById(id);
-        return motorist.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if(motorist.isPresent()){
+            return ResponseEntity.ok(new MotoristaDto(motorist.get()));
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/nome/{nome}")
-    public ResponseEntity<Motorista> findByNome(@PathVariable("nome") String nome){
+    @GetMapping("{nome}")
+    public ResponseEntity<MotoristaDto> findByNome(@PathVariable("nome") String nome){
         var name = motoristaRepository.findByNome(nome);
         return name.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(name.get(0));
     }
 
     @PostMapping
-    public ResponseEntity<Motorista> insert(@RequestBody Motorista motorista, UriComponentsBuilder uriBuilder){
-        var m = motoristaRepository.save(new Motorista(
+    public ResponseEntity<MotoristaDto> insert(@RequestBody MotoristaDto motoristaDto, UriComponentsBuilder uriBuilder){
+        var motorista = motoristaRepository.save(new Motorista(
                 null,
-                motorista.getNome(),
-                motorista.getEmail(),
-                motorista.getTelefone(),
-                motorista.getCorridas(),
-                motorista.getVeiculo()
+                motoristaDto.nome(),
+                motoristaDto.email(),
+                motoristaDto.telefone(),
+                null,
+                motoristaDto.veiculo()
         ));
-        var location = uriBuilder.path("/api/motoristas/{id}").build(m.getId());
-        return ResponseEntity.created(location).body(m);
+        var location = uriBuilder.path("{id}").buildAndExpand(motorista.getId()).toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("{id}")

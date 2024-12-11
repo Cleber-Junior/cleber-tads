@@ -1,10 +1,12 @@
-package br.edu.ifsul.cstsi.tads_cleber.veiculos;
+package br.edu.ifsul.cstsi.tads_cleber.service;
 
+import br.edu.ifsul.cstsi.tads_cleber.controller.VeiculoDto;
+import br.edu.ifsul.cstsi.tads_cleber.entity.Veiculo;
+import br.edu.ifsul.cstsi.tads_cleber.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,11 @@ public class VeiculoService {
         return repository.findAll();
     }
 
+    public Veiculo insert(Veiculo veiculo) {
+        Assert.isNull(veiculo.getId(), "Não foi possivel inserir uma veiculo");
+        return repository.save(veiculo);
+    }
+
     public Veiculo findById(Long id) {
         Optional<Veiculo> optional = repository.findById(id);
         if(optional.isPresent()) {
@@ -26,13 +33,8 @@ public class VeiculoService {
         return null;
     }
 
-    public List<Veiculo> findByTipo(String tipo) {
+    public List<VeiculoDto> findByTipo(String tipo) {
         return new ArrayList<>(repository.findVeiculoByTipo(tipo));
-    }
-
-    public Veiculo insert(Veiculo veiculo) {
-        Assert.isNull(veiculo.getId(), "Não foi possivel inserir uma veiculo");
-        return repository.save(veiculo);
     }
 
     public Veiculo update(Veiculo veiculo) {
@@ -41,17 +43,17 @@ public class VeiculoService {
         Optional<Veiculo> optional = repository.findById(veiculo.getId());
         if(optional.isPresent()) {
             Veiculo veiculoAtualizado = optional.get();
-            veiculoAtualizado.setAnoFabricacao(veiculo.getAnoFabricacao());
-            veiculoAtualizado.setTipo(veiculo.getTipo());
             veiculoAtualizado.setPlaca(veiculo.getPlaca());
+            veiculoAtualizado.setTipo(veiculo.getTipo());
+            veiculoAtualizado.setAnoFabricacao(veiculo.getAnoFabricacao());
 
             return repository.save(veiculoAtualizado);
         } else {
             return null;
         }
     }
-
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
+//
+//    public void delete(Long id) {
+//        repository.deleteById(id);
+//    }
 }

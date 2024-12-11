@@ -1,4 +1,4 @@
-package br.edu.ifsul.cstsi.tads_cleber.veiculos;
+package br.edu.ifsul.cstsi.tads_cleber.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

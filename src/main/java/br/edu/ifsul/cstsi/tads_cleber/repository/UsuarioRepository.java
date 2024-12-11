@@ -1,11 +1,11 @@
-package br.edu.ifsul.cstsi.tads_cleber.usuarios;
+package br.edu.ifsul.cstsi.tads_cleber.repository;
 
+import br.edu.ifsul.cstsi.tads_cleber.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
-import java.util.Optional;
 
 @RepositoryRestResource(exported = false)
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {

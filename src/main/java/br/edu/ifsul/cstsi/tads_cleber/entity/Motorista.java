@@ -1,7 +1,5 @@
-package br.edu.ifsul.cstsi.tads_cleber.motoristas;
+package br.edu.ifsul.cstsi.tads_cleber.entity;
 
-import br.edu.ifsul.cstsi.tads_cleber.corridas.Corrida;
-import br.edu.ifsul.cstsi.tads_cleber.veiculos.Veiculo;
 import jakarta.persistence.*;
 import lombok.*;
 

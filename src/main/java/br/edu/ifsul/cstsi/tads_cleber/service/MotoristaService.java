@@ -1,5 +1,8 @@
-package br.edu.ifsul.cstsi.tads_cleber.motoristas;
+package br.edu.ifsul.cstsi.tads_cleber.service;
 
+import br.edu.ifsul.cstsi.tads_cleber.controller.MotoristaDto;
+import br.edu.ifsul.cstsi.tads_cleber.entity.Motorista;
+import br.edu.ifsul.cstsi.tads_cleber.repository.MotoristaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -29,8 +32,8 @@ public class MotoristaService {
     }
 
     //Selecionar pelo Nome
-    public List<Motorista> getMotoristaByNome(String nome){
-        return new ArrayList<>(rep.findByNome(nome + "%"));
+    public List<MotoristaDto> getMotoristaByNome(String nome){
+        return new ArrayList<>(rep.findByNome(nome));
     }
 
     //Inserir Motorista

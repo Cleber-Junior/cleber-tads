@@ -1,12 +1,14 @@
-package br.edu.ifsul.cstsi.tads_cleber.usuarios;
+package br.edu.ifsul.cstsi.tads_cleber.controller;
 
+import br.edu.ifsul.cstsi.tads_cleber.entity.Usuario;
+import br.edu.ifsul.cstsi.tads_cleber.repository.UsuarioRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Scanner;
+
 @Controller
 @RestController
 @RequestMapping("/api/usuarios")
