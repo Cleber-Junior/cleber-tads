@@ -9,7 +9,8 @@ import java.util.List;
 
 @RepositoryRestResource(exported = false)
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
-    @Query(value = "Select u from Usuarios u where u.nome like ?1")
+    @Query(value = "Select u from Usuario u where u.nome like ?1")
     List<Usuario> findByNome(String nome);
-
+    Boolean existsByEmail(String email);
+    Usuario findByEmail(String email);
 }

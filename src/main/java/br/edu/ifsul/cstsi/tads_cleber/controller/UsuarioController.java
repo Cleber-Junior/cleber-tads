@@ -32,17 +32,20 @@ public class UsuarioController {
     }
 
     @GetMapping("/nome/{name})")
-    public ResponseEntity<Usuario> findByNome(@PathVariable("nome") String nome) {
+    public ResponseEntity<Usuario> findByNome(@PathVariable("name") String nome) {
         var names = usuarioRepository.findByNome(nome);
         return names.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(names.get(0));
     }
 
     @PostMapping
     public ResponseEntity<Usuario> insert(@RequestBody Usuario usuario, UriComponentsBuilder uriBuilder) {
-        var u = usuarioRepository.save(new Usuario(
+        Usuario u = usuarioRepository.save(new Usuario(
                 null,
                 usuario.getNome(),
+                usuario.getSobrenome(),
                 usuario.getEmail(),
+                usuario.getSenha(),
+                usuario.isConfirmed(),
                 usuario.getTelefone(),
                 null
         ));
@@ -54,10 +57,13 @@ public class UsuarioController {
     public ResponseEntity<Usuario> update(@PathVariable("id") Long id, @RequestBody Usuario usuario) {
         var userFind = usuarioRepository.findById(id);
         if(userFind.isPresent()){
-            var userAtt = usuarioRepository.save(new Usuario(
+            Usuario userAtt = usuarioRepository.save(new Usuario(
                     id,
                     usuario.getNome(),
+                    usuario.getSobrenome(),
                     usuario.getEmail(),
+                    usuario.getSenha(),
+                    usuario.isConfirmed(),
                     usuario.getTelefone(),
                     null
             ));
